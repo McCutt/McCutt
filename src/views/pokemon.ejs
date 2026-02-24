@@ -1,0 +1,85 @@
+<%- include('partials/header') %>
+
+<main class="main-content">
+  <a href="/" class="back-btn">&larr; Back to Pokedex</a>
+
+  <div class="pokemon-detail type-bg-<%= pokemon.types[0] %>">
+    <div class="pokemon-detail-header">
+      <div class="pokemon-detail-id">#<%= String(pokemon.id).padStart(3, '0') %></div>
+      <h1 class="pokemon-detail-name"><%= pokemon.displayName %></h1>
+      <p class="pokemon-genus"><%= pokemon.genus %></p>
+    </div>
+
+    <div class="pokemon-detail-content">
+      <div class="pokemon-detail-left">
+        <div class="pokemon-detail-image">
+          <img src="<%= pokemon.image || pokemon.sprite %>" alt="<%= pokemon.displayName %>">
+        </div>
+
+        <div class="pokemon-types-detail">
+          <% pokemon.types.forEach(type => { %>
+            <span class="type-badge type-<%= type %>"><%= type %></span>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="pokemon-detail-right">
+        <div class="pokemon-description">
+          <h3>Description</h3>
+          <p><%= pokemon.description %></p>
+        </div>
+
+        <div class="pokemon-info-grid">
+          <div class="info-item">
+            <span class="info-label">Height</span>
+            <span class="info-value"><%= pokemon.height %> m</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Weight</span>
+            <span class="info-value"><%= pokemon.weight %> kg</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Capture Rate</span>
+            <span class="info-value"><%= pokemon.captureRate %></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Base Happiness</span>
+            <span class="info-value"><%= pokemon.baseHappiness %></span>
+          </div>
+        </div>
+
+        <div class="pokemon-abilities">
+          <h3>Abilities</h3>
+          <div class="abilities-list">
+            <% pokemon.abilities.forEach(ability => { %>
+              <span class="ability-badge <%= ability.isHidden ? 'hidden-ability' : '' %>">
+                <%= ability.name %><%= ability.isHidden ? ' (Hidden)' : '' %>
+              </span>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="pokemon-stats">
+          <h3>Base Stats</h3>
+          <% pokemon.stats.forEach(stat => { %>
+            <div class="stat-row">
+              <span class="stat-name"><%= stat.name %></span>
+              <div class="stat-bar-container">
+                <div class="stat-bar" data-width="<%= Math.min(stat.value / 255 * 100, 100) %>"></div>
+              </div>
+              <span class="stat-value"><%= stat.value %></span>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.querySelectorAll('.stat-bar').forEach(bar => {
+    bar.style.width = bar.dataset.width + '%';
+  });
+</script>
+
+<%- include('partials/footer') %>

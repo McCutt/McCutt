@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<main class="main-content">
+  <div class="error-container">
+    <div class="error-pokeball">
+      <div class="pokeball-top"></div>
+      <div class="pokeball-center"></div>
+      <div class="pokeball-bottom"></div>
+    </div>
+    <h1 class="error-title"><%= message %></h1>
+    <p class="error-message"><%= error %></p>
+    <a href="/" class="back-home-btn">Back to Pokedex</a>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

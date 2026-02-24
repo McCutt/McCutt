@@ -1,0 +1,92 @@
+<%- include('partials/header') %>
+
+<main class="main-content">
+  <div class="search-section">
+    <form action="/search" method="GET" class="search-form">
+      <div class="search-input-wrapper">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search Pokemon by name or ID..."
+          value="<%= searchQuery %>"
+          class="search-input"
+        >
+        <button type="submit" class="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div class="type-filter">
+      <label>Filter by Type:</label>
+      <div class="type-buttons">
+        <a href="/" class="type-btn <%= selectedType === '' ? 'active' : '' %>">All</a>
+        <% types.forEach(type => { %>
+          <a href="/type/<%= type.name %>" class="type-btn type-<%= type.name %> <%= selectedType === type.name ? 'active' : '' %>">
+            <%= type.displayName %>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <% if (searchQuery) { %>
+    <div class="search-results-info">
+      <p>Found <%= totalCount %> result(s) for "<%= searchQuery %>"</p>
+      <a href="/" class="clear-search">Clear search</a>
+    </div>
+  <% } %>
+
+  <% if (selectedType) { %>
+    <div class="search-results-info">
+      <p>Showing <%= totalCount %> <%= selectedType %> type Pokemon</p>
+      <a href="/" class="clear-search">Show all</a>
+    </div>
+  <% } %>
+
+  <div class="pokemon-grid">
+    <% if (pokemon && pokemon.length > 0) { %>
+      <% pokemon.forEach(poke => { %>
+        <a href="/pokemon/<%= poke.name %>" class="pokemon-card type-bg-<%= poke.types[0] %>">
+          <div class="pokemon-id">#<%= String(poke.id).padStart(3, '0') %></div>
+          <div class="pokemon-image">
+            <img src="<%= poke.image || poke.sprite %>" alt="<%= poke.displayName %>" loading="lazy">
+          </div>
+          <h3 class="pokemon-name"><%= poke.displayName %></h3>
+          <div class="pokemon-types">
+            <% poke.types.forEach(type => { %>
+              <span class="type-badge type-<%= type %>"><%= type %></span>
+            <% }); %>
+          </div>
+        </a>
+      <% }); %>
+    <% } else { %>
+      <div class="no-results">
+        <p>No Pokemon found</p>
+      </div>
+    <% } %>
+  </div>
+
+  <% if (!searchQuery && totalPages > 1) { %>
+    <div class="pagination">
+      <% if (hasPrevPage) { %>
+        <a href="<%= selectedType ? `/type/${selectedType}?page=${currentPage - 1}` : `/?page=${currentPage - 1}` %>" class="page-btn">
+          &laquo; Previous
+        </a>
+      <% } %>
+
+      <span class="page-info">Page <%= currentPage %> of <%= totalPages %></span>
+
+      <% if (hasNextPage) { %>
+        <a href="<%= selectedType ? `/type/${selectedType}?page=${currentPage + 1}` : `/?page=${currentPage + 1}` %>" class="page-btn">
+          Next &raquo;
+        </a>
+      <% } %>
+    </div>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>
