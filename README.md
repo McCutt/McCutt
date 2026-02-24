@@ -1,5 +1,5 @@
 # 💫 About Me:
-Motivated and creative aspiring UI/UX Designer with hands-on experience in academic<br>projects and web-based designs. Skilled in creating user-friendly interfaces, improving<br>user flows, and developing clean wireframes. Known for being responsible,<br>dependable, and collaborative in group projects. Eager to apply design skills and<br>contribute toa professional team.
+Motivated and creative aspiring UI/UX Designer with hands-on experience in academic<br>projects and web-based designs. Skilled in creating user-friendly interfaces, improving<br>user flows, and developing clean wireframes. Known for being responsible,<br>dependable, and collaborative in group projects. Eager to apply design skills and<br>contribute toa professional team. Dracrys!
 
 
 ## 🌐 Socials:
